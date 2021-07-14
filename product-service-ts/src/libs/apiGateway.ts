@@ -28,3 +28,11 @@ export const formatJSONResponse400 = (response: Record<string, unknown>) => {
     body: JSON.stringify(response)
   };
 };
+
+export const formatJSONResponse404 = (response: Record<string, unknown>) => {
+  return {
+    statusCode: 404,
+    headers: corsHeaders,
+    body: JSON.stringify(response)
+  };
+};

@@ -12,7 +12,7 @@ export const products: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async
     return formatJSONResponse(result);
   } catch (err) {
     return formatJSONResponse500({
-      error: 'Some error on the server side'
+      error: 'Filed to get products'
     });
   }
 }
