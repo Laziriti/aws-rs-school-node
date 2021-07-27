@@ -36,3 +36,4 @@ export const formatJSONResponse404 = (response: Record<string, unknown>) => {
     body: JSON.stringify(response)
   };
 };
+
