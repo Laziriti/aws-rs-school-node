@@ -2,6 +2,7 @@ import type { AWS } from '@serverless/typescript';
 
 import getAllProducts from '@functions/get-all-products';
 import getProduct from '@functions/get-product';
+import createProduct from '@functions/create-product';
 
 const serverlessConfiguration: AWS = {
   service: 'product-service-ts',
@@ -24,11 +25,16 @@ const serverlessConfiguration: AWS = {
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
+      PG_HOST: '',
+      PG_PORT: '',
+      PG_DATABASE: '',
+      PG_USERNAME: '',
+      PG_PASSWORD: ''
     },
     lambdaHashingVersion: '20201221',
   },
   // import the function via paths
-  functions: { getAllProducts, getProduct },
+  functions: { getAllProducts, getProduct, createProduct },
 };
 
 module.exports = serverlessConfiguration;
