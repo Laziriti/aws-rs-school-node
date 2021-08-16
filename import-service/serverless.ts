@@ -22,10 +22,16 @@ const serverlessConfiguration: AWS = {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
-    iamRoleStatements: [
-      { Effect: "Allow", Action: "s3:ListBucket", Resource: "arn:aws:s3:::import-products-files-bucket" },
-      { Effect: "Allow", Action: "s3:*", Resource: "arn:aws:s3:::import-products-files-bucket/*" }
-    ],
+    iam: {
+      role: {
+        statements: [
+          { Effect: "Allow", Action: "s3:ListBucket", Resource: "arn:aws:s3:::import-products-files-bucket" },
+          { Effect: "Allow", Action: "s3:*", Resource: "arn:aws:s3:::import-products-files-bucket" },
+          { Effect: "Allow", Action: "s3:*", Resource: "arn:aws:s3:::import-products-files-bucket/*" },
+          { Effect: "Allow", Action: "s3:*", Resource: "arn:aws:s3:::import-products-files-bucket/*/*" }
+        ],
+      }
+    },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       s3BucketName: 'import-products-files-bucket'
