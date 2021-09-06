@@ -9,8 +9,15 @@ export const importFileParser: any = async (event) => {
 
   try {
     const s3 = new AWS.S3({ region: 'eu-west-1', signatureVersion: "v4" })
-
-    const products = await createProducts(s3, event.Records);
+    const SQS = new AWS.SQS();
+    const products: any[] = await createProducts(s3, SQS, event.Records);
+    for await (const product of products[0]) {
+      const sqsResult = await SQS.sendMessage({
+        QueueUrl: 'https://sqs.eu-west-1.amazonaws.com/880377123414/catalogItemsQueue',
+        MessageBody: JSON.stringify(product)
+      }).promise();
+      console.log(sqsResult);
+    }
     console.log(products);
     await moveRecords(s3, event.Records);
 
@@ -39,7 +46,7 @@ const moveRecords = async (s3, records) => {
   }
 }
 
-const createProducts = (s3, records) => {
+const createProducts = (s3, SQS, records) => {
   const promises = records.map((record) => {
     const params = {
       Bucket: record.s3.bucket.name,
@@ -53,7 +60,7 @@ const createProducts = (s3, records) => {
       readStream
         .pipe(csv())
         .on("data", (data) => {
-          allRowsData.push(data)
+          allRowsData.push(data);
         })
         .on("end", () => {
           resolve(allRowsData)

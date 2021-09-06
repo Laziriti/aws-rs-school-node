@@ -28,7 +28,8 @@ const serverlessConfiguration: AWS = {
           { Effect: "Allow", Action: "s3:ListBucket", Resource: "arn:aws:s3:::import-products-files-bucket" },
           { Effect: "Allow", Action: "s3:*", Resource: "arn:aws:s3:::import-products-files-bucket" },
           { Effect: "Allow", Action: "s3:*", Resource: "arn:aws:s3:::import-products-files-bucket/*" },
-          { Effect: "Allow", Action: "s3:*", Resource: "arn:aws:s3:::import-products-files-bucket/*/*" }
+          { Effect: "Allow", Action: "s3:*", Resource: "arn:aws:s3:::import-products-files-bucket/*/*" },
+          { Effect: "Allow", Action: "sqs:*", Resource: "arn:aws:sqs:eu-west-1:880377123414:catalogItemsQueue" }
         ],
       }
     },
