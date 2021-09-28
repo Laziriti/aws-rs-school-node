@@ -1,0 +1,8 @@
+# Misc
+.git
+# Prevents locally installed modules and dist to be included
+node_modules
+dist
+# We do not run tests in container
+test
+
